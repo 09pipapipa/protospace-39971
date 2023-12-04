@@ -1,7 +1,7 @@
 class PrototypesController < ApplicationController
 
   before_action :authenticate_user!, except:[:index, :show]
-  before_action :move_to_index, except: :index
+  before_action :move_to_index, except: [:index,:show]
 
   def index
     @prototypes = Prototype.all
@@ -31,7 +31,7 @@ class PrototypesController < ApplicationController
   def update
     @prototype = Prototype.find(params[:id])
     if @prototype.update(prototype_params)
-      redirect_to root_path
+      redirect_to prototype_path
     else
       render :edit, status: :unprocessable_entity
     end
@@ -39,6 +39,7 @@ class PrototypesController < ApplicationController
 
   def edit
     @prototype = Prototype.find(params[:id])
+    redirect_to root_path unless current_user.id == @prototype.user_id
   end
 
   def destroy
