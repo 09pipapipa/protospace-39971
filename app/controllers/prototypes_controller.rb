@@ -18,7 +18,7 @@ class PrototypesController < ApplicationController
       redirect_to root_path(@prototype)
     else
       @prototype = @prototype.includes(:user)
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
