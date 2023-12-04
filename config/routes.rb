@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   # root "articles#index"
   root to: 'prototypes#index'
   resources :users
-  resources :prototypes do
-    resources :comments,only: :create
-  end
+  resources :prototypes,only:[:index, :show]
+  resources :comments,only: :create
+  
 end
