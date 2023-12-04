@@ -13,11 +13,11 @@ class PrototypesController < ApplicationController
 
   def create
     @prototype = Prototype.new(prototype_params)
-
+  
     if @prototype.save
+      @prototype.user.reload
       redirect_to root_path(@prototype)
     else
-      @prototype = @prototype.includes(:user)
       render :new, status: :unprocessable_entity
     end
   end
